@@ -11,7 +11,7 @@ use rand::Rng;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use QuantumTimeSandwich::prelude::*;
+    use quantum_time_sandwich::prelude::*;
     #[test]
     fn test_generate_bb84_state() {
         let mut counts = [0, 0, 0, 0]; // Counts for QubitZero, QubitOne, QubitPlus, QubitMinus
@@ -355,41 +355,28 @@ mod tests {
 
     #[test]
     fn test_protocol_with_noise() {
-        let noise_probability = 0.5;
-        let number_of_qubits = 10;
-        let mut alice_bits = Vec::new();
-        let mut alice_bases = Vec::new();
-        let mut bob_bases = Vec::new();
-        let mut bob_measurements = Vec::new();
+    let mut alice = Alice::new(128); // Sylvain's suggestion: 100+ qubits
+    let mut bob = Bob::new();
 
-        for _ in 0..number_of_qubits {
-            alice_bits.push(random_bit());
-            alice_bases.push(MeasurementBasis::random());
-        }
+    let alice_qubits = alice.send_qubits();
 
-        for i in 0..number_of_qubits {
-            let state = generate_bb84_state(alice_bits[i], alice_bases[i]);
+    // Use the original probabilistic noise logic
+    let noisy_qubits: Vec<_> = alice_qubits
+        .into_iter()
+        .map(|mut q| {
+            q.apply_noise(0.1); 
+            q
+        })
+        .collect();
 
-            // THE LOGIC FIX:
-            // Force the first qubit (i == 0) to have a MATCHING basis
-            // so that our "forced noise" actually survives the sifting process.
-            let bob_basis = if i == 0 {
-                alice_bases[i]
-            } else {
-                MeasurementBasis::random()
-            };
+    bob.receive_qubits(noisy_qubits, alice.bases.clone());
 
-            bob_bases.push(bob_basis);
-            let measurement = measure_bb84_state(state, bob_basis);
+    let alice_key = alice.get_sifted_key(&bob.bases);
+    let bob_key = bob.get_sifted_key(&alice.bases);
 
-            // THE NOISE FIX:
-            // Guarantee a flip on the first bit.
-            if i == 0 || random_noise(noise_probability) {
-                bob_measurements.push(!measurement);
-            } else {
-                bob_measurements.push(measurement);
-            }
-        }
+    // With 128 qubits, a perfect match is statistically impossible
+    assert_ne!(alice_key, bob_key, "Keys should differ due to noise");
+}
 
         let mut sifted_alice_bits = Vec::new();
         let mut noisy_sifted_bob_bits = Vec::new();

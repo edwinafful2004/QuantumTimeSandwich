@@ -3,28 +3,6 @@
 version = 4
 
 [[package]]
-name = "QuantumTimeSandwich"
-version = "1.4.0"
-dependencies = [
- "QuantumTimeSandwich-iterators",
- "num-complex",
- "num-rational",
- "num-traits",
- "rand",
- "rayon",
- "smallvec",
- "unit_circle_state_machine",
-]
-
-[[package]]
-name = "QuantumTimeSandwich-iterators"
-version = "1.4.0"
-dependencies = [
- "num-traits",
- "rayon",
-]
-
-[[package]]
 name = "aead"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -69,12 +47,12 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 name = "bb84"
 version = "0.1.0"
 dependencies = [
- "QuantumTimeSandwich",
  "aes",
  "aes-gcm",
  "block-modes",
  "num-bigint",
  "num-traits",
+ "quantum_time_sandwich",
  "rand",
  "ring",
  "sha2",
@@ -325,6 +303,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8fd00f0bb2e90d81d1044c2b32617f68fcb9fa3bb7640c23e9c748e53fb30934"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "quantum_time_sandwich"
+version = "1.4.0"
+dependencies = [
+ "num-complex",
+ "num-rational",
+ "num-traits",
+ "quantum_time_sandwich_iterators",
+ "rand",
+ "rayon",
+ "smallvec",
+ "unit_circle_state_machine",
+]
+
+[[package]]
+name = "quantum_time_sandwich_iterators"
+version = "1.4.0"
+dependencies = [
+ "num-traits",
+ "rayon",
 ]
 
 [[package]]

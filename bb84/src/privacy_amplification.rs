@@ -1,33 +1,4 @@
 use rand::Rng;
-use ring::digest::{Context, SHA256};
-
-#[allow(dead_code)]
-fn hash_chunk(chunk: &[u8]) -> Vec<u8> {
-    let mut context = Context::new(&SHA256);
-    context.update(chunk);
-    let digest = context.finish();
-    digest.as_ref().to_vec()
-}
-#[allow(dead_code)]
-fn bools_to_bytes(bools: &[bool]) -> Vec<u8> {
-    bools
-        .chunks(8)
-        .map(|chunk| {
-            chunk
-                .iter()
-                .enumerate()
-                .fold(0, |acc, (i, &bit)| acc | ((bit as u8) << i))
-        })
-        .collect()
-}
-
-#[allow(dead_code)]
-fn bytes_to_bools(bytes: &[u8]) -> Vec<bool> {
-    bytes
-        .iter()
-        .flat_map(|&byte| (0..8).map(move |i| byte & (1 << i) != 0))
-        .collect()
-}
 
 fn toeplitz_hash(shared_key: Vec<bool>, toeplitz_matrix: Vec<Vec<bool>>) -> Vec<bool> {
     let mut hashed_key = Vec::new();

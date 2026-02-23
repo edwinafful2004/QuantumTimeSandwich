@@ -1,7 +1,3 @@
-#![allow(non_snake_case)]
-#![allow(unused_variables)]
-#![allow(dead_code)]
-
 use bb84::bb84::{generate_bb84_state, measure_bb84_state};
 use bb84::bb84_states::{random_bit, BB84State, MeasurementBasis};
 

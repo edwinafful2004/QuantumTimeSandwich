@@ -1,4 +1,3 @@
-#![allow(non_snake_case)]
 pub mod bb84;
 pub mod bb84_states;
 pub mod error_correction;

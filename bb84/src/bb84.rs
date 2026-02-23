@@ -1,10 +1,10 @@
 use crate::bb84::prelude::CircuitError;
 use crate::bb84_states::{random_bit, BB84State, MeasurementBasis};
-use QuantumTimeSandwich::builder_traits::CircuitBuilder;
-use QuantumTimeSandwich::builder_traits::CliffordTBuilder;
-use QuantumTimeSandwich::builder_traits::MeasurementBuilder;
-use QuantumTimeSandwich::prelude::LocalBuilder;
-use QuantumTimeSandwich::*;
+use quantum_time_sandwich::builder_traits::CircuitBuilder;
+use quantum_time_sandwich::builder_traits::CliffordTBuilder;
+use quantum_time_sandwich::builder_traits::MeasurementBuilder;
+use quantum_time_sandwich::prelude::LocalBuilder;
+use quantum_time_sandwich::*;
 
 pub fn generate_bb84_state(bit: bool, basis: MeasurementBasis) -> BB84State {
     match basis {
