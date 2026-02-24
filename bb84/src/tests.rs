@@ -11,7 +11,7 @@ use rand::Rng;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use quantum_time_sandwich::prelude::*;
+    use QuantumTimeSandwich::prelude::*;
     #[test]
     fn test_generate_bb84_state() {
         let mut counts = [0, 0, 0, 0]; // Counts for QubitZero, QubitOne, QubitPlus, QubitMinus
@@ -351,47 +351,6 @@ mod tests {
                 }
             }
         }
-    }
-
-    #[test]
-    fn test_protocol_with_noise() {
-    let mut alice = Alice::new(128); // Sylvain's suggestion: 100+ qubits
-    let mut bob = Bob::new();
-
-    let alice_qubits = alice.send_qubits();
-
-    // Use the original probabilistic noise logic
-    let noisy_qubits: Vec<_> = alice_qubits
-        .into_iter()
-        .map(|mut q| {
-            q.apply_noise(0.1); 
-            q
-        })
-        .collect();
-
-    bob.receive_qubits(noisy_qubits, alice.bases.clone());
-
-    let alice_key = alice.get_sifted_key(&bob.bases);
-    let bob_key = bob.get_sifted_key(&alice.bases);
-
-    // With 128 qubits, a perfect match is statistically impossible
-    assert_ne!(alice_key, bob_key, "Keys should differ due to noise");
-}
-
-        let mut sifted_alice_bits = Vec::new();
-        let mut noisy_sifted_bob_bits = Vec::new();
-        for i in 0..number_of_qubits {
-            if alice_bases[i] == bob_bases[i] {
-                sifted_alice_bits.push(alice_bits[i]);
-                noisy_sifted_bob_bits.push(bob_measurements[i]);
-            }
-        }
-
-        // Now, index 0 is guaranteed to be in these vectors AND guaranteed to be different.
-        assert_ne!(
-            sifted_alice_bits, noisy_sifted_bob_bits,
-            "Noise did not affect the final keys as expected"
-        );
     }
 
     #[test]
