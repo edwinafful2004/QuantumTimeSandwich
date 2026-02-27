@@ -35,8 +35,8 @@ mod tests {
     #[test]
     fn test_apply_privacy_amplification() {
         let shared_key = vec![true, false, true, false, true, false, true, false];
-        let _amplified_key = apply_privacy_amplification(shared_key);
-        // assert the expected outcome
+        let amplified_key = apply_privacy_amplification(shared_key);
+        assert!(!amplified_key.is_empty());
     }
     #[test]
     fn test_random_key_input() {

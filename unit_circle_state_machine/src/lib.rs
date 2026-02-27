@@ -1,4 +1,3 @@
-#![allow(non_snake_case)]
 pub mod operation;
 pub mod protocol;
 #[cfg(test)]

@@ -6,7 +6,7 @@ version = 4
 name = "QuantumTimeSandwich"
 version = "1.4.0"
 dependencies = [
- "QuantumTimeSandwich_iterators",
+ "QuantumTimeSandwich-iterators",
  "num-complex",
  "num-rational",
  "num-traits",
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "QuantumTimeSandwich_iterators"
+name = "QuantumTimeSandwich-iterators"
 version = "1.4.0"
 dependencies = [
  "num-traits",

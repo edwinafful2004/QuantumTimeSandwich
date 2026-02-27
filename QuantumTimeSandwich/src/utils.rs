@@ -1,7 +1,7 @@
 #[cfg(feature = "parallel")]
 pub(crate) use rayon::prelude::*;
 
-use QuantumTimeSandwich_iterators::into_iter;
+use quantum_time_sandwich_iterators::into_iter;
 
 use std::sync::{Arc, Mutex};
 

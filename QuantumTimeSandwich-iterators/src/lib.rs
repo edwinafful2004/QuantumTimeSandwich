@@ -1,4 +1,3 @@
-#![allow(non_snake_case)]
 #![forbid(unsafe_code)]
 #![deny(
     unreachable_pub,
