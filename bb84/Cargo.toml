@@ -17,3 +17,7 @@ num-bigint = "0.4"
 num-traits = "0.2"
 sha2 = "0.10.9"
 ring = "0.17.14"
+
+[[bin]]
+name = "bb84_sim"
+path = "src/bb84.rs"
